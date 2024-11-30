@@ -83,6 +83,12 @@ El repositorio contiene:
 - `Jugadoras y Equipos.csv`: Dataset de entrada con 100 registros para la liga.
 - Documentación adicional sobre cómo configurar y ejecutar el entorno.
 
+### Acceso al Código
+El código está disponible públicamente en el siguiente repositorio:
+[Repositorio de GitHub](https://github.com/Sevillanojr3/actividadBDNOSQL_ATBD.git)
+
+Por favor, accede al enlace para revisar el proyecto.
+
 ## Agradecimientos y Uso de Herramientas de Apoyo
 
 En el desarrollo de este proyecto, se utilizó **ChatGPT**, un modelo de inteligencia artificial de OpenAI, como herramienta de soporte para las siguientes tareas:
