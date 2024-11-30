@@ -83,4 +83,31 @@ El repositorio contiene:
 - `Jugadoras y Equipos.csv`: Dataset de entrada con 100 registros para la liga.
 - Documentación adicional sobre cómo configurar y ejecutar el entorno.
 
+## Agradecimientos y Uso de Herramientas de Apoyo
+
+En el desarrollo de este proyecto, se utilizó **ChatGPT**, un modelo de inteligencia artificial de OpenAI, como herramienta de soporte para las siguientes tareas:
+
+1. **Conexión a la Base de Datos Neo4j:**
+   - ChatGPT ayudó a definir el código necesario para establecer la conexión a la base de datos utilizando la biblioteca `neo4j` en Python.
+   - Se proporcionaron ejemplos prácticos y ajustados para garantizar que los datos fueran cargados correctamente desde el archivo CSV al entorno de Neo4j.
+
+2. **Definición de Consultas (Queries) en Cypher:**
+   - ChatGPT fue una herramienta clave para redactar y optimizar las queries en Cypher utilizadas para:
+     - Crear nodos y relaciones (jugadoras, equipos, ligas, partidos y jugadas).
+     - Implementar modificaciones específicas en los datos, como cambios en los nombres de las jugadoras.
+     - Generar lógica avanzada, como jugadas aleatorias y condiciones basadas en resultados.
+
+3. **Redacción y Formato del README:**
+   - ChatGPT ayudó a estructurar y dar formato al README, asegurando que la documentación fuera clara, profesional y comprensible.
+   - Se incluyeron explicaciones detalladas sobre el esquema, sentencias de inserción y modificación, y pasos necesarios para replicar el entorno.
+
+---
+
+El uso de ChatGPT permitió acelerar el desarrollo del proyecto y garantizar un nivel de detalle adecuado en cada etapa del proceso. Esta herramienta no solo facilitó la creación de código funcional, sino que también fue fundamental para organizar y documentar correctamente el proyecto.
+
+Si estás interesado en aprender más sobre cómo aprovechar herramientas de inteligencia artificial como ChatGPT para apoyar en proyectos similares, no dudes en explorarlo. Es una herramienta poderosa que puede complementar tus habilidades y optimizar tu tiempo de desarrollo. 
+
+¡Gracias por revisar este proyecto! 😊
+
+--- 
 **Nota:** Todos los detalles necesarios para ejecutar el proyecto están incluidos en este archivo README y en la documentación del repositorio.
