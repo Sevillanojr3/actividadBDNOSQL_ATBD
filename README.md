@@ -70,12 +70,6 @@ SET p.name = 'NOMBREORIGINAL2';
 
 ---
 
-## Requisitos de Acceso al Código
-
-El código del proyecto se encuentra en un repositorio privado de GitHub. Para obtener acceso:
-1. Solicitar permisos al propietario del repositorio.
-2. La dirección del repositorio será compartida una vez que se apruebe el acceso.
-
 ### Código disponible:
 - Script en Python para inserción y generación de datos (`main.py`).
 - Ejemplo de archivo CSV (`Jugadoras y Equipos.csv`).
