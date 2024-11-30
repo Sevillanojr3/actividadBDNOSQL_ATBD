@@ -58,10 +58,6 @@ SET p.name = 'NOMBREORIGINAL2';
 ```
 
 ---
-Aquí tienes la sección actualizada con las consultas como parte del README:
-
----
-
 ### 5. Consultas Definidas en Cypher
 
 A continuación, se presentan las consultas diseñadas para analizar los datos en la base de datos Neo4j. Estas queries permiten obtener información sobre los partidos, equipos, y jugadoras en la liga.
