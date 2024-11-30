@@ -58,6 +58,69 @@ SET p.name = 'NOMBREORIGINAL2';
 ```
 
 ---
+Aquí tienes la sección actualizada con las consultas como parte del README:
+
+---
+
+### 5. Consultas Definidas en Cypher
+
+A continuación, se presentan las consultas diseñadas para analizar los datos en la base de datos Neo4j. Estas queries permiten obtener información sobre los partidos, equipos, y jugadoras en la liga.
+
+#### 1. Ver la cantidad total de partidos jugados
+Esta consulta cuenta el número total de nodos `Game`, que representan los partidos en la liga.
+
+```cypher
+MATCH (game:Game)
+RETURN COUNT(game) AS TotalGames;
+```
+
+#### 2. Resultados de los partidos
+Para saber cómo quedaron los partidos, puedes ejecutar la siguiente consulta. Cambia el número del partido (`game.number`) según el partido que desees analizar.
+
+```cypher
+MATCH (team:Team)-[:PLAYS_IN]->(game:Game {number: 1}) // Cambia el número del juego según corresponda
+OPTIONAL MATCH (play:Play)-[:BELONGS_TO_GAME]->(game)
+WHERE play.result = "Gol" AND play.team = team.name
+RETURN team.name AS Team, COUNT(play) AS Goals
+ORDER BY Goals DESC;
+```
+
+#### 3. Jugadoras que anotaron goles
+Esta consulta muestra qué jugadoras anotaron goles, el equipo al que pertenecen, el equipo oponente contra el que anotaron, el número del partido, y la cantidad de goles anotados.
+
+```cypher
+MATCH (player:Player)-[:BELONGS_TO]->(team:Team),
+      (play:Play)-[:BELONGS_TO_GAME]->(game:Game),
+      (player)-[:SCORES_GOAL]->(play),
+      (otherTeam:Team)-[:PLAYS_IN]->(game)
+WHERE play.result = "Gol" AND otherTeam <> team
+RETURN player.name AS Player,
+       team.name AS PlayerTeam,
+       otherTeam.name AS OpponentTeam,
+       game.number AS MatchNumber,
+       COUNT(play) AS GoalsScored
+ORDER BY MatchNumber, GoalsScored DESC;
+```
+
+#### 4. Jugadoras con más goles
+Para identificar qué jugadoras anotaron más de un gol en la liga, se puede usar la siguiente consulta. Retorna el nombre de la jugadora, su equipo y la cantidad total de goles anotados, ordenados de mayor a menor.
+
+```cypher
+MATCH (player:Player)-[:BELONGS_TO]->(team:Team),
+      (play:Play)-[:BELONGS_TO_GAME]->(game:Game),
+      (player)-[:SCORES_GOAL]->(play)
+WHERE play.result = "Gol"
+WITH player, team, COUNT(play) AS TotalGoals
+WHERE TotalGoals > 1
+RETURN player.name AS Player,
+       team.name AS Team,
+       TotalGoals
+ORDER BY TotalGoals DESC;
+```
+
+---
+
+Estas consultas permiten explorar y analizar diferentes aspectos del modelo de datos, proporcionando insights valiosos sobre la liga y el desempeño de sus equipos y jugadoras. Puedes ejecutarlas directamente en Neo4j Browser para visualizar los resultados.
 
 ## Instrucciones para Crear la Base de Datos
 
