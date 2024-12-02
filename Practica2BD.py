@@ -14,7 +14,7 @@ password = config["neo4j"]["password"]
 
 driver = GraphDatabase.driver(uri, auth=(username, password))
 
-csv_path = "C:/Users/jesus/Desarrollo/Big Data/Jugadoras y Equipos.csv"
+csv_path = "Jugadoras y Equipos.csv"
 
 data = pd.read_csv(csv_path, encoding='latin1')
 
