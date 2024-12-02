@@ -43,8 +43,8 @@ El script utiliza Python y la biblioteca `neo4j` para cargar datos desde un arch
 4. Inserta jugadas realizadas en cada partido.
 
 Para ejecutar el script:
-- Instalar los requisitos con `pip install neo4j pandas`.
-- Configurar el archivo CSV en la ruta `C:/Users/jesus/Desarrollo/Big Data/Jugadoras y Equipos.csv`.
+- Instalar los requisitos con `pip install neo4j pandas pyyaml`.
+- Configurar el archivo `config.yaml` (ver detalles más abajo).
 - Ejecutar el script Python.
 
 ### 4. **Sentencias de Modificación**
@@ -56,7 +56,6 @@ SET p.name = 'NOMBREORIGINAL1';
 MATCH (p:Player {name: 'NombreOriginal2'})
 SET p.name = 'NOMBREORIGINAL2';
 ```
-
 ---
 ### 5. Consultas Definidas en Cypher
 
@@ -118,35 +117,83 @@ ORDER BY TotalGoals DESC;
 
 Estas consultas permiten explorar y analizar diferentes aspectos del modelo de datos, proporcionando insights valiosos sobre la liga y el desempeño de sus equipos y jugadoras. Puedes ejecutarlas directamente en Neo4j Browser para visualizar los resultados.
 
-## Instrucciones para Crear la Base de Datos
+---
 
-1. Instalar [Docker Desktop](https://www.docker.com/).
-2. Descargar la imagen de Neo4j ejecutando el siguiente comando:
+## Configuración del Archivo `config.yaml`
+
+Crea un archivo llamado `config.yaml` en la raíz del proyecto con las credenciales para conectarte a Neo4j. Aquí tienes un ejemplo:
+
+```yaml
+neo4j:
+  uri: "bolt://localhost:7687"
+  username: "neo4j"
+  password: "Jr20020194"
+```
+
+Este archivo es utilizado por el script para cargar las credenciales necesarias al establecer la conexión con Neo4j. Asegúrate de modificar los valores según tu configuración.
+
+---
+
+## Configuración del Archivo `docker-compose.yaml`
+
+Para simplificar el despliegue de la base de datos Neo4j, puedes usar Docker y `docker-compose`. Crea un archivo llamado `docker-compose.yaml` con el siguiente contenido:
+
+```yaml
+version: '3.8'
+services:
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j-db
+    ports:
+      - "7474:7474" # Puerto para el navegador de Neo4j
+      - "7687:7687" # Puerto para conexiones Bolt
+    environment:
+      - NEO4J_AUTH=neo4j/Jr20020194 # Usuario y contraseña
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/var/lib/neo4j/import
+      - neo4j_plugins:/plugins
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:
+```
+
+### Pasos para Usar Docker Compose
+
+1. Instala [Docker Desktop](https://www.docker.com/).
+2. Navega al directorio donde está el archivo `docker-compose.yaml`.
+3. Ejecuta el siguiente comando para levantar el contenedor:
    ```bash
-   docker pull neo4j
+   docker-compose up -d
    ```
-3. Configurar y ejecutar el contenedor Neo4j. Se puede usar una configuración básica desde Docker Desktop o una personalizada en `docker-compose`.
+4. Accede al navegador de Neo4j en [http://localhost:7474](http://localhost:7474) con las credenciales `neo4j/Jr20020194`.
 
 ---
 
-### Código disponible:
-- Script en Python para inserción y generación de datos (`main.py`).
-- Ejemplo de archivo CSV (`Jugadoras y Equipos.csv`).
+## Instrucciones para Ejecutar el Script
+
+1. Asegúrate de que el contenedor de Neo4j esté corriendo.
+2. Verifica que el archivo `config.yaml` esté configurado correctamente.
+3. Ejecuta el script con:
+   ```bash
+   python main.py
+   ```
+
+El script se conectará automáticamente a la base de datos Neo4j en el contenedor y cargará los datos desde el archivo CSV.
 
 ---
 
-## Sección "Código"
-
-El repositorio contiene:
+## Código disponible:
 - `main.py`: Script principal para cargar datos en Neo4j.
+- `config.yaml`: Archivo de configuración para las credenciales de la base de datos.
+- `docker-compose.yaml`: Archivo para desplegar Neo4j en un contenedor.
 - `Jugadoras y Equipos.csv`: Dataset de entrada con 100 registros para la liga.
-- Documentación adicional sobre cómo configurar y ejecutar el entorno.
 
-### Acceso al Código
-El código está disponible públicamente en el siguiente repositorio:
-[Repositorio de GitHub](https://github.com/Sevillanojr3/actividadBDNOSQL_ATBD.git)
-
-Por favor, accede al enlace para revisar el proyecto.
+---
 
 ## Agradecimientos y Uso de Herramientas de Apoyo
 
@@ -170,9 +217,10 @@ En el desarrollo de este proyecto, se utilizó **ChatGPT**, un modelo de intelig
 
 El uso de ChatGPT permitió acelerar el desarrollo del proyecto y garantizar un nivel de detalle adecuado en cada etapa del proceso. Esta herramienta no solo facilitó la creación de código funcional, sino que también fue fundamental para organizar y documentar correctamente el proyecto.
 
-Si estás interesado en aprender más sobre cómo aprovechar herramientas de inteligencia artificial como ChatGPT para apoyar en proyectos similares, no dudes en explorarlo. Es una herramienta poderosa que puede complementar tus habilidades y optimizar tu tiempo de desarrollo. 
+Si estás interesado en aprender más sobre cómo aprovechar herramientas de inteligencia artificial como ChatGPT para apoyar en proyectos similares, no dudes en explorarlo. Es una herramienta poderosa que puede complementar tus habilidades y optimizar tu tiempo de desarrollo.
 
 ¡Gracias por revisar este proyecto! 😊
 
 --- 
+
 **Nota:** Todos los detalles necesarios para ejecutar el proyecto están incluidos en este archivo README y en la documentación del repositorio.

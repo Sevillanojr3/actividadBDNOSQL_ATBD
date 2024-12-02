@@ -1,15 +1,22 @@
+import yaml
 from neo4j import GraphDatabase
 import pandas as pd
 import random
 
+# Cargar configuración desde el archivo YAML
+with open("config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+
+# Datos de conexión a Neo4j desde el archivo YAML
+uri = config["neo4j"]["uri"]
+username = config["neo4j"]["username"]
+password = config["neo4j"]["password"]
+
+driver = GraphDatabase.driver(uri, auth=(username, password))
+
 csv_path = "C:/Users/jesus/Desarrollo/Big Data/Jugadoras y Equipos.csv"
 
 data = pd.read_csv(csv_path, encoding='latin1')
-
-uri = "neo4j://localhost:7687"
-username = "neo4j"
-password = "Jr20020194"
-driver = GraphDatabase.driver(uri, auth=(username, password))
 
 def insert_player_team_and_league(tx, player, squad):
     query = """
